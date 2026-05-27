@@ -63,11 +63,31 @@ if st.button("🔍 Predict Transaction"):
     # Scale data
     input_scaled = scaler.transform(input_array)
 
-    # Predict
+    # Prediction
     prediction = model.predict(input_scaled)
 
-    # Prediction probability
+    # Probability
     probability = model.predict_proba(input_scaled)[0][1]
+
+    if prediction[0] == 1:
+
+        st.error("⚠ Fraudulent Transaction Detected")
+
+        st.metric(
+            label="Fraud Probability",
+            value=f"{probability:.2%}"
+        )
+
+    else:
+
+        st.success("✅ Genuine Transaction")
+
+        st.balloons()
+
+        st.metric(
+            label="Fraud Probability",
+            value=f"{probability:.2%}"
+        )
 
 if prediction[0] == 1:
 
