@@ -50,6 +50,7 @@ This project predicts whether a transaction is fraudulent or genuine using Machi
 """)
 
 st.sidebar.success("Model: Decision Tree")
+st.sidebar.image("plots/model_accuracy_barplot.png")
 
 # -----------------------------
 # Info Message
@@ -108,6 +109,9 @@ if st.button("🔍 Predict Transaction"):
             label="Fraud Probability",
             value=f"{probability:.2%}"
         )
+        st.markdown("## Model Performance")
+
+st.image("plots/roc_curves.png")
 
 # -----------------------------
 # Footer
