@@ -2,34 +2,23 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
-import zipfile
 
 # -----------------------------
 # Load trained model and scaler
 # -----------------------------
 model = joblib.load("outputs/DecisionTree.joblib")
 scaler = joblib.load("outputs/scaler.joblib")
+
 # -----------------------------
-# Load dataset columns
+# Feature columns
 # -----------------------------
-#  zip_path = "data/archive.zip"
-
-# with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-
-    # csv_file = [f for f in zip_ref.namelist() if f.endswith(".csv")][0]
-
-    # with zip_ref.open(csv_file) as file:
-        # df = pd.read_csv(file)
-df = pd.read_csv("archive/fraudTrain.csv") 
-
-# Remove target columns
-drop_columns = ["Class", "is_fraud"]
-
-# Keep only numeric columns
-numeric_df = df.select_dtypes(include=['number'])
-
-# Remove unwanted columns
-feature_columns = [col for col in numeric_df.columns if col not in drop_columns]
+feature_columns = [
+    "amt",
+    "city_pop",
+    "unix_time",
+    "merch_lat",
+    "merch_long"
+]
 
 # -----------------------------
 # Streamlit UI
@@ -56,20 +45,20 @@ for col in feature_columns:
 if st.button("Predict Transaction"):
 
     input_array = np.array([input_data])
-input_array = np.array([input_data])
 
-# Scale data
-input_scaled = scaler.transform(input_array)
+    # Scale data
+    input_scaled = scaler.transform(input_array)
 
-prediction = model.predict(input_scaled)
+    # Predict
+    prediction = model.predict(input_scaled)
 
-# Prediction probability
-probability = model.predict_proba(input_scaled)[0][1]
+    # Prediction probability
+    probability = model.predict_proba(input_scaled)[0][1]
 
-if prediction[0] == 1:
-    st.error("⚠ Fraudulent Transaction Detected")
-    st.write(f"Fraud Probability: {probability:.2%}")
+    if prediction[0] == 1:
+        st.error("⚠ Fraudulent Transaction Detected")
+        st.write(f"Fraud Probability: {probability:.2%}")
 
-else:
-    st.success("✅ Genuine Transaction")
-    st.write(f"Fraud Probability: {probability:.2%}")
+    else:
+        st.success("✅ Genuine Transaction")
+        st.write(f"Fraud Probability: {probability:.2%}")
