@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 import numpy as np
 import joblib
 
@@ -21,20 +20,29 @@ feature_columns = [
 ]
 
 # -----------------------------
-# Streamlit UI
+# Streamlit Page Config
 # -----------------------------
-st.set_page_config(page_title="Fraud Detection", page_icon="💳")
+st.set_page_config(
+    page_title="Fraud Detection",
+    page_icon="💳",
+    layout="wide"
+)
 
+# -----------------------------
+# Main Title
+# -----------------------------
 st.markdown(
     """
     <h1 style='text-align: center; color: white;'>
-    💳 Credit Card Fraud Detection System
+        💳 Credit Card Fraud Detection System
     </h1>
     """,
     unsafe_allow_html=True
 )
 
-st.info("Enter transaction details below to predict fraud.")
+# -----------------------------
+# Sidebar
+# -----------------------------
 st.sidebar.title("About Project")
 
 st.sidebar.write("""
@@ -43,21 +51,31 @@ This project predicts whether a transaction is fraudulent or genuine using Machi
 
 st.sidebar.success("Model: Decision Tree")
 
-# Store user inputs
+# -----------------------------
+# Info Message
+# -----------------------------
+st.info("Enter transaction details below to predict fraud.")
+
+# -----------------------------
+# User Inputs
+# -----------------------------
 input_data = []
 
-# Create input fields dynamically
 for col in feature_columns:
 
-    value = st.number_input(f"{col}", value=0.0)
+    value = st.number_input(
+        f"{col}",
+        value=0.0
+    )
 
     input_data.append(value)
 
 # -----------------------------
-# Prediction
+# Prediction Button
 # -----------------------------
 if st.button("🔍 Predict Transaction"):
 
+    # Convert input to array
     input_array = np.array([input_data])
 
     # Scale data
@@ -69,24 +87,31 @@ if st.button("🔍 Predict Transaction"):
     # Probability
     probability = model.predict_proba(input_scaled)[0][1]
 
-   
-if prediction[0] == 1:
+    # Fraud Prediction
+    if prediction[0] == 1:
 
-    st.error("⚠ Fraudulent Transaction Detected")
+        st.error("⚠ Fraudulent Transaction Detected")
 
-    st.metric(
-        label="Fraud Probability",
-        value=f"{probability:.2%}"
-    )
+        st.metric(
+            label="Fraud Probability",
+            value=f"{probability:.2%}"
+        )
 
-else:
+    # Genuine Prediction
+    else:
 
-    st.success("✅ Genuine Transaction")
+        st.success("✅ Genuine Transaction")
 
-    st.metric(
-        label="Fraud Probability",
-        value=f"{probability:.2%}"
-    )
+        st.balloons()
 
-    st.markdown("---")
+        st.metric(
+            label="Fraud Probability",
+            value=f"{probability:.2%}"
+        )
+
+# -----------------------------
+# Footer
+# -----------------------------
+st.markdown("---")
+
 st.caption("Developed using Streamlit and Machine Learning")
