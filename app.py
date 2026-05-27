@@ -25,9 +25,23 @@ feature_columns = [
 # -----------------------------
 st.set_page_config(page_title="Fraud Detection", page_icon="💳")
 
-st.title("💳 Credit Card Fraud Detection System")
+st.markdown(
+    """
+    <h1 style='text-align: center; color: white;'>
+    💳 Credit Card Fraud Detection System
+    </h1>
+    """,
+    unsafe_allow_html=True
+)
 
-st.write("Enter transaction details below:")
+st.info("Enter transaction details below to predict fraud.")
+st.sidebar.title("About Project")
+
+st.sidebar.write("""
+This project predicts whether a transaction is fraudulent or genuine using Machine Learning.
+""")
+
+st.sidebar.success("Model: Decision Tree")
 
 # Store user inputs
 input_data = []
@@ -42,7 +56,7 @@ for col in feature_columns:
 # -----------------------------
 # Prediction
 # -----------------------------
-if st.button("Predict Transaction"):
+if st.button("🔍 Predict Transaction"):
 
     input_array = np.array([input_data])
 
@@ -62,3 +76,6 @@ if st.button("Predict Transaction"):
     else:
         st.success("✅ Genuine Transaction")
         st.write(f"Fraud Probability: {probability:.2%}")
+
+        st.markdown("---")
+st.caption("Developed using Streamlit and Machine Learning")
