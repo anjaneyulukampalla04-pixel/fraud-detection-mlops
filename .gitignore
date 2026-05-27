@@ -5,8 +5,6 @@ __pycache__/
 
 archive/
 data/
-outputs/
-models/
-*.joblib
+
 *.csv
 *.zip
