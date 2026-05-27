@@ -7,9 +7,8 @@ import zipfile
 # -----------------------------
 # Load trained model and scaler
 # -----------------------------
-model = joblib.load("models/DecisionTree.joblib")
-scaler = joblib.load("models/scaler.joblib")
-
+model = joblib.load("outputs/DecisionTree.joblib")
+scaler = joblib.load("outputs/scaler.joblib")
 # -----------------------------
 # Load dataset columns
 # -----------------------------
