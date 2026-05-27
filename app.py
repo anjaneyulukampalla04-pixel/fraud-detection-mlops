@@ -69,13 +69,23 @@ if st.button("🔍 Predict Transaction"):
     # Prediction probability
     probability = model.predict_proba(input_scaled)[0][1]
 
-    if prediction[0] == 1:
-        st.error("⚠ Fraudulent Transaction Detected")
-        st.write(f"Fraud Probability: {probability:.2%}")
+if prediction[0] == 1:
 
-    else:
-        st.success("✅ Genuine Transaction")
-        st.write(f"Fraud Probability: {probability:.2%}")
+    st.error("⚠ Fraudulent Transaction Detected")
 
-        st.markdown("---")
+    st.metric(
+        label="Fraud Probability",
+        value=f"{probability:.2%}"
+    )
+
+else:
+
+    st.success("✅ Genuine Transaction")
+
+    st.metric(
+        label="Fraud Probability",
+        value=f"{probability:.2%}"
+    )
+
+    st.markdown("---")
 st.caption("Developed using Streamlit and Machine Learning")
