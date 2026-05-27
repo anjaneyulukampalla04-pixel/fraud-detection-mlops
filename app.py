@@ -7,7 +7,7 @@ import zipfile
 # -----------------------------
 # Load trained model and scaler
 # -----------------------------
-model = joblib.load("models/RandomForest.joblib")
+model = joblib.load("models/DecisionTree.joblib")
 scaler = joblib.load("models/scaler.joblib")
 
 # -----------------------------
