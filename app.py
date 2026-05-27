@@ -12,14 +12,15 @@ scaler = joblib.load("outputs/scaler.joblib")
 # -----------------------------
 # Load dataset columns
 # -----------------------------
-zip_path = "data/archive.zip"
+#  zip_path = "data/archive.zip"
 
-with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+# with zipfile.ZipFile(zip_path, 'r') as zip_ref:
 
-    csv_file = [f for f in zip_ref.namelist() if f.endswith(".csv")][0]
+    # csv_file = [f for f in zip_ref.namelist() if f.endswith(".csv")][0]
 
-    with zip_ref.open(csv_file) as file:
-        df = pd.read_csv(file)
+    # with zip_ref.open(csv_file) as file:
+        # df = pd.read_csv(file)
+df = pd.read_csv("archive/fraudTrain.csv") 
 
 # Remove target columns
 drop_columns = ["Class", "is_fraud"]
