@@ -32,3 +32,7 @@ Random Forest achieved highest performance.
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
+
+## Application Demo
+
+![Demo](plots/app_demo.png)
