@@ -13,12 +13,16 @@ scaler = joblib.load("outputs/scaler.joblib")
 # -----------------------------
 feature_columns = [
     "amt",
+    "lat",
+    "long",
     "city_pop",
     "unix_time",
     "merch_lat",
-    "merch_long"
+    "merch_long",
+    "hour",
+    "day",
+    "month"
 ]
-
 # -----------------------------
 # Streamlit Page Config
 # -----------------------------
