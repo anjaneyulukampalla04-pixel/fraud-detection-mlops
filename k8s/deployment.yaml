@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: fraud-detection-app
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: fraud-detection
+
+  template:
+    metadata:
+      labels:
+        app: fraud-detection
+
+    spec:
+      containers:
+      - name: fraud-detection-container
+
+        image: fraud-detection-app:latest
+
+        ports:
+        - containerPort: 8501
